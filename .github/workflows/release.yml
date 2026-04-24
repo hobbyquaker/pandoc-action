@@ -30,6 +30,7 @@ jobs:
             --metadata-file=metadata.yaml \
             --include-in-header=header.tex \
             --pdf-engine=xelatex \
+            --citeproc \
             -o document.pdf
 
       - name: Compute version tag

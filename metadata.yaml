@@ -5,8 +5,10 @@ date: 2026-04-24
 lang: en
 toc: true
 toc-depth: 2
+lof: true
 numbersections: true
 geometry: margin=2.5cm
 fontsize: 12pt
 papersize: a4
+bibliography: references.bib
 ---
