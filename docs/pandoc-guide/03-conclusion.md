@@ -12,7 +12,9 @@ built on two open-source tools:
 Along the way, Chapter 2 showcased the breadth of Markdown features that Pandoc
 handles natively: rich text emphasis, nested lists, pipe tables, fenced code
 blocks with syntax highlighting, inline and display LaTeX mathematics, and
-blockquotes.
+blockquotes.  Chapter 4 extended the showcase with footnotes, BibTeX
+citations processed by `--citeproc`, embedded images with captions, and an
+auto-generated List of Figures.
 
 ## Next Steps
 

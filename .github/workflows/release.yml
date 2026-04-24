@@ -28,9 +28,12 @@ jobs:
         run: |
           for doc_dir in docs/*/; do
             name=$(basename "$doc_dir")
-            pandoc metadata.yaml \
-              "$doc_dir"*.md \
+            pandoc \
+              --metadata-file=metadata.yaml \
+              --include-in-header=header.tex \
               --pdf-engine=xelatex \
+              --citeproc \
+              "$doc_dir"*.md \
               -o "${name}.pdf"
           done
 
