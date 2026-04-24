@@ -151,3 +151,7 @@ the `files:` list of the release step.
 Replace the `echo "VERSION=v1.${{ github.run_number }}"` line with any
 versioning logic you prefer, such as reading a `VERSION` file or using a
 semantic-versioning action.
+
+## License
+
+[MIT](LICENSE) © hobbyquaker
