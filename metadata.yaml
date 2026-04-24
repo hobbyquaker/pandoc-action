@@ -9,11 +9,10 @@ numbersections: true
 geometry: margin=2.5cm
 fontsize: 12pt
 papersize: a4
-# Paths to optional header and footer images (relative to the working directory
-# where pandoc is invoked).  Set either value to an empty string to disable
-# the corresponding image.
-header-image: "images/header.png"
-footer-image: "images/footer.png"
+# Header and footer images are configured directly inside header-includes below.
+# To change the image paths, update the \newcommand{\headerimage}{...} and
+# \newcommand{\footerimage}{...} values.  To disable an image, set the command
+# to an empty value: \renewcommand{\headerimage}{}
 header-includes:
   - |
     \usepackage{graphicx}

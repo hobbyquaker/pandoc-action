@@ -36,10 +36,18 @@ To **replace** the images, simply overwrite `images/header.png` and/or
 PNG, JPEG, PDF).  The image is scaled to the full text-block width
 (`\textwidth`) while keeping its aspect ratio, so any size works.
 
-To **disable** a header or footer image, set the corresponding path to an
-empty string in `metadata.yaml` and remove the matching
-`\newcommand{\headerimage}{…}` / `\newcommand{\footerimage}{…}` line from
-the `header-includes` block, or set the command to `{}`.
+To **disable** a header or footer image, set the corresponding
+`\newcommand` value to empty inside the `header-includes` block in
+`metadata.yaml`.  The `\ifthenelse` guard will then skip the
+`\includegraphics` call entirely:
+
+```latex
+\renewcommand{\headerimage}{}   % no header image
+\renewcommand{\footerimage}{}   % no footer image
+```
+
+Do **not** remove the `\newcommand` lines entirely — the `\ifthenelse`
+checks rely on the commands being defined.
 
 The feature is implemented via the `fancyhdr` LaTeX package, which is
 included in the standard `texlive-latex-extra` / `texlive-fonts-recommended`
