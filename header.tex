@@ -1,0 +1,29 @@
+\usepackage{graphicx}
+\usepackage{fancyhdr}
+\usepackage{ifthen}
+\pagestyle{fancy}
+\fancyhf{}
+% ---- header image -------------------------------------------------------
+\newcommand{\headerimage}{images/header.png}
+\ifthenelse{\equal{\headerimage}{}}{}{%
+  \fancyhead[C]{\includegraphics[width=\textwidth,keepaspectratio]{\headerimage}}%
+}
+% ---- footer image -------------------------------------------------------
+\newcommand{\footerimage}{images/footer.png}
+\ifthenelse{\equal{\footerimage}{}}{}{%
+  \fancyfoot[C]{\includegraphics[width=\textwidth,keepaspectratio]{\footerimage}}%
+}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+% Apply the same style to the first page of each chapter
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \ifthenelse{\equal{\headerimage}{}}{}{%
+    \fancyhead[C]{\includegraphics[width=\textwidth,keepaspectratio]{\headerimage}}%
+  }
+  \ifthenelse{\equal{\footerimage}{}}{}{%
+    \fancyfoot[C]{\includegraphics[width=\textwidth,keepaspectratio]{\footerimage}}%
+  }
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
