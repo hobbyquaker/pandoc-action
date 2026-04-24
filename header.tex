@@ -4,15 +4,16 @@
 \usepackage{etoolbox}
 \pagestyle{fancy}
 \fancyhf{}
+\setlength{\headsep}{0pt}
 % ---- header image -------------------------------------------------------
 \newcommand{\headerimage}{images/header.png}
 \ifthenelse{\equal{\headerimage}{}}{}{%
-  \fancyhead[C]{\includegraphics[width=\textwidth,keepaspectratio]{\headerimage}}%
+  \fancyhead[L]{\hspace*{-\dimexpr(\paperwidth-\textwidth)/2\relax}\includegraphics[width=\paperwidth,keepaspectratio]{\headerimage}}%
 }
 % ---- footer image -------------------------------------------------------
 \newcommand{\footerimage}{images/footer.png}
 \ifthenelse{\equal{\footerimage}{}}{}{%
-  \fancyfoot[C]{\includegraphics[width=\textwidth,keepaspectratio]{\footerimage}}%
+  \fancyfoot[L]{\hspace*{-\dimexpr(\paperwidth-\textwidth)/2\relax}\includegraphics[width=\paperwidth,keepaspectratio]{\footerimage}}%
 }
 % ---- page numbers -------------------------------------------------------
 \newcommand{\pagenumbers}{true}
@@ -25,10 +26,10 @@
 \fancypagestyle{plain}{%
   \fancyhf{}
   \ifthenelse{\equal{\headerimage}{}}{}{%
-    \fancyhead[C]{\includegraphics[width=\textwidth,keepaspectratio]{\headerimage}}%
+    \fancyhead[L]{\hspace*{-\dimexpr(\paperwidth-\textwidth)/2\relax}\includegraphics[width=\paperwidth,keepaspectratio]{\headerimage}}%
   }
   \ifthenelse{\equal{\footerimage}{}}{}{%
-    \fancyfoot[C]{\includegraphics[width=\textwidth,keepaspectratio]{\footerimage}}%
+    \fancyfoot[L]{\hspace*{-\dimexpr(\paperwidth-\textwidth)/2\relax}\includegraphics[width=\paperwidth,keepaspectratio]{\footerimage}}%
   }
   \ifthenelse{\equal{\pagenumbers}{true}}{%
     \fancyfoot[R]{\thepage}%
