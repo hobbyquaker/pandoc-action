@@ -29,6 +29,7 @@ artifact without any manual steps.
 
 This document is composed of three chapters:
 
-1. **Introduction** (this chapter) — motivation and tooling overview.
-2. **Content Showcase** — a tour of the Markdown features that Pandoc supports.
-3. **Conclusion** — a summary of what was demonstrated and suggested next steps.
+1. [**Introduction**](#introduction) (this chapter) — motivation and tooling overview.
+2. [**Content Showcase**](#content-showcase) — a tour of the Markdown features that Pandoc supports,
+   including a dedicated [Cross-References](#cross-references) section.
+3. [**Conclusion**](#conclusion) — a summary of what was demonstrated and suggested next steps.

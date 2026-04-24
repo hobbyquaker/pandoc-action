@@ -70,3 +70,79 @@ $$
 
 > *"The art of writing is the art of discovering what you believe."*
 > — Gustave Flaubert
+
+## Cross-References {#cross-references}
+
+Pandoc automatically assigns every heading an identifier derived from its text.
+The identifier is built by converting the heading to lower-case, replacing
+spaces with hyphens, and stripping most punctuation — the same rules used by
+GitHub Flavored Markdown.
+
+### Automatic heading identifiers
+
+| Heading text | Generated identifier |
+|---|---|
+| `# Introduction` | `#introduction` |
+| `# Content Showcase` | `#content-showcase` |
+| `## What is Pandoc?` | `#what-is-pandoc` |
+| `## Feature Table` | `#feature-table` |
+| `# Conclusion` | `#conclusion` |
+
+Use the identifier as the target of a standard Markdown link to create a
+clickable in-document reference:
+
+```markdown
+See the [Introduction](#introduction) for background.
+See [Feature Table](#feature-table) for a full list of supported features.
+Jump straight to the [Conclusion](#conclusion).
+```
+
+These render as live, clickable links inside the PDF (rendered with the colour
+defined by `linkcolor` in `metadata.yaml`):
+
+- See the [Introduction](#introduction) for background.
+- See [Feature Table](#feature-table) for a full list of supported features.
+- Jump straight to the [Conclusion](#conclusion).
+
+### Custom anchors {#custom-anchors}
+
+When a heading's auto-generated ID would be awkward, attach an explicit
+`{#my-id}` attribute directly after the heading text:
+
+```markdown
+## Cross-References {#cross-references}
+
+### Custom anchors {#custom-anchors}
+```
+
+You can then link to that anchor from anywhere in the document:
+
+```markdown
+Read more about [custom anchors](#custom-anchors).
+```
+
+This section itself uses a custom anchor, so the following link works even
+though the section title contains mixed case:
+[Back to Cross-References](#cross-references).
+
+### Sub-chapter links
+
+Sub-sections are referenced exactly like top-level chapters.  For example, the
+[Why Automate Document Generation?](#why-automate-document-generation) section
+in the Introduction and the [Mathematics](#mathematics) sub-section earlier in
+this chapter are both reachable by clicking the links inline.
+
+### Enabling coloured links in `metadata.yaml`
+
+By default the links are black and indistinguishable from surrounding text.
+Add the following keys to `metadata.yaml` to colour them:
+
+```yaml
+colorlinks: true
+linkcolor: NavyBlue   # internal cross-references
+urlcolor:  NavyBlue   # external URLs
+citecolor: NavyBlue   # bibliography citations
+```
+
+`linkcolor`, `urlcolor`, and `citecolor` accept any colour name recognised by
+the LaTeX `xcolor` package (e.g. `blue`, `red`, `teal`, `NavyBlue`).

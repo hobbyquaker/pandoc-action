@@ -64,6 +64,42 @@ pandoc metadata.yaml \
   -o document.pdf
 ```
 
+## Clickable cross-references
+
+Pandoc automatically assigns every heading an identifier built from its text
+(lower-case, spaces → hyphens, punctuation stripped).  Use standard Markdown
+link syntax to create a clickable in-document reference:
+
+```markdown
+See the [Introduction](#introduction) for background.
+Jump to [Feature Table](#feature-table).
+```
+
+When you need a stable or shorter ID, attach an explicit anchor to the heading:
+
+```markdown
+## Cross-References {#cross-references}
+```
+
+Then link to it from anywhere:
+
+```markdown
+Read the [cross-reference guide](#cross-references).
+```
+
+To make internal links visible as coloured text in the PDF, add the following
+keys to `metadata.yaml`:
+
+```yaml
+colorlinks: true
+linkcolor: NavyBlue   # internal cross-references
+urlcolor:  NavyBlue   # external URLs
+citecolor: NavyBlue   # bibliography citations
+```
+
+See the [Cross-References section of `docs/02-content.md`](docs/02-content.md)
+for a live, rendered example of every technique.
+
 ## CI workflow
 
 The workflow (`.github/workflows/release.yml`) triggers on every push to

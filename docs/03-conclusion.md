@@ -9,10 +9,13 @@ built on two open-source tools:
 - **GitHub Actions** — for running the conversion automatically on every push to
   `main`, tagging the commit, and publishing the PDF as a GitHub Release asset.
 
-Along the way, Chapter 2 showcased the breadth of Markdown features that Pandoc
-handles natively: rich text emphasis, nested lists, pipe tables, fenced code
-blocks with syntax highlighting, inline and display LaTeX mathematics, and
-blockquotes.
+Along the way, [Chapter 2 — Content Showcase](#content-showcase) showcased the
+breadth of Markdown features that Pandoc handles natively: rich text emphasis,
+nested lists, pipe tables, fenced code blocks with syntax highlighting, inline
+and display LaTeX mathematics, and blockquotes.  It also demonstrated how to
+create [clickable cross-references](#cross-references) to any chapter or
+sub-chapter — including [custom anchors](#custom-anchors) — that render as live
+links inside the PDF.
 
 ## Next Steps
 
