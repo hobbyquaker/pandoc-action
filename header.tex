@@ -5,17 +5,25 @@
 \pagestyle{fancy}
 \fancyhf{}
 \setlength{\headsep}{0pt}
-\newlength{\hdrheight}
 % ---- header image -------------------------------------------------------
 \newcommand{\headerimage}{images/header.png}
 \ifthenelse{\equal{\headerimage}{}}{}{%
-  \AtBeginDocument{\settoheight{\hdrheight}{\includegraphics[width=\paperwidth,keepaspectratio]{\headerimage}}}%
-  \fancyhead[L]{\raisebox{\dimexpr 1in+\voffset+\topmargin+\headheight-\hdrheight\relax}[0pt][0pt]{\hspace*{-\dimexpr(\paperwidth-\textwidth)/2\relax}\includegraphics[width=\paperwidth,keepaspectratio]{\headerimage}}}%
+  \newlength{\hdrheight}%
+  \newsavebox{\hdrimgbox}%
+  \AtBeginDocument{%
+    \savebox{\hdrimgbox}{\hspace*{-\dimexpr(\paperwidth-\textwidth)/2\relax}\includegraphics[width=\paperwidth,keepaspectratio]{\headerimage}}%
+    \settoheight{\hdrheight}{\usebox{\hdrimgbox}}%
+  }%
+  \fancyhead[L]{\raisebox{\dimexpr 1in+\voffset+\topmargin+\headheight-\hdrheight\relax}[0pt][0pt]{\usebox{\hdrimgbox}}}%
 }
 % ---- footer image -------------------------------------------------------
 \newcommand{\footerimage}{images/footer.png}
 \ifthenelse{\equal{\footerimage}{}}{}{%
-  \fancyfoot[L]{\raisebox{\dimexpr-\paperheight+1in+\voffset+\topmargin+\headheight+\headsep+\textheight+\footskip\relax}[0pt][0pt]{\hspace*{-\dimexpr(\paperwidth-\textwidth)/2\relax}\includegraphics[width=\paperwidth,keepaspectratio]{\footerimage}}}%
+  \newsavebox{\ftrimgbox}%
+  \AtBeginDocument{%
+    \savebox{\ftrimgbox}{\hspace*{-\dimexpr(\paperwidth-\textwidth)/2\relax}\includegraphics[width=\paperwidth,keepaspectratio]{\footerimage}}%
+  }%
+  \fancyfoot[L]{\raisebox{\dimexpr-\paperheight+1in+\voffset+\topmargin+\headheight+\headsep+\textheight+\footskip\relax}[0pt][0pt]{\usebox{\ftrimgbox}}}%
 }
 % ---- page numbers -------------------------------------------------------
 \newcommand{\pagenumbers}{true}
@@ -28,10 +36,10 @@
 \fancypagestyle{plain}{%
   \fancyhf{}
   \ifthenelse{\equal{\headerimage}{}}{}{%
-    \fancyhead[L]{\raisebox{\dimexpr 1in+\voffset+\topmargin+\headheight-\hdrheight\relax}[0pt][0pt]{\hspace*{-\dimexpr(\paperwidth-\textwidth)/2\relax}\includegraphics[width=\paperwidth,keepaspectratio]{\headerimage}}}%
+    \fancyhead[L]{\raisebox{\dimexpr 1in+\voffset+\topmargin+\headheight-\hdrheight\relax}[0pt][0pt]{\usebox{\hdrimgbox}}}%
   }
   \ifthenelse{\equal{\footerimage}{}}{}{%
-    \fancyfoot[L]{\raisebox{\dimexpr-\paperheight+1in+\voffset+\topmargin+\headheight+\headsep+\textheight+\footskip\relax}[0pt][0pt]{\hspace*{-\dimexpr(\paperwidth-\textwidth)/2\relax}\includegraphics[width=\paperwidth,keepaspectratio]{\footerimage}}}%
+    \fancyfoot[L]{\raisebox{\dimexpr-\paperheight+1in+\voffset+\topmargin+\headheight+\headsep+\textheight+\footskip\relax}[0pt][0pt]{\usebox{\ftrimgbox}}}%
   }
   \ifthenelse{\equal{\pagenumbers}{true}}{%
     \fancyfoot[R]{\thepage}%
