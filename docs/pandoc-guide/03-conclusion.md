@@ -15,7 +15,9 @@ nested lists, pipe tables, fenced code blocks with syntax highlighting, inline
 and display LaTeX mathematics, and blockquotes.  It also demonstrated how to
 create [clickable cross-references](#cross-references) to any chapter or
 sub-chapter — including [custom anchors](#custom-anchors) — that render as live
-links inside the PDF.
+links inside the PDF.  Chapter 4 extended the showcase with footnotes, BibTeX
+citations processed by `--citeproc`, embedded images with captions, and an
+auto-generated List of Figures.
 
 ## Next Steps
 

@@ -24,12 +24,18 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended texlive-fonts-extra
 
-      - name: Build PDF with Pandoc
+      - name: Build PDFs with Pandoc
         run: |
-          pandoc metadata.yaml \
-            docs/*.md \
-            --pdf-engine=xelatex \
-            -o document.pdf
+          for doc_dir in docs/*/; do
+            name=$(basename "$doc_dir")
+            pandoc \
+              --metadata-file=metadata.yaml \
+              --include-in-header=header.tex \
+              --pdf-engine=xelatex \
+              --citeproc \
+              "$doc_dir"*.md \
+              -o "${name}.pdf"
+          done
 
       - name: Compute version tag
         id: version
@@ -54,5 +60,5 @@ jobs:
             **Commit:** ${{ github.sha }}
 
             ### Contents
-            - `document.pdf` — compiled from all Markdown files in `docs/` using Pandoc + XeLaTeX.
-          files: document.pdf
+            Each subdirectory under `docs/` is compiled into its own PDF using Pandoc + XeLaTeX.
+          files: "*.pdf"

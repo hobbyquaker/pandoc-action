@@ -5,6 +5,7 @@ date: 2026-04-24
 lang: en
 toc: true
 toc-depth: 2
+lof: true
 numbersections: true
 colorlinks: true
 linkcolor: NavyBlue
@@ -13,39 +14,5 @@ citecolor: NavyBlue
 geometry: margin=2.5cm
 fontsize: 12pt
 papersize: a4
-# Header and footer images are configured directly inside header-includes below.
-# To change the image paths, update the \newcommand{\headerimage}{...} and
-# \newcommand{\footerimage}{...} values.  To disable an image, set the command
-# to an empty value: \renewcommand{\headerimage}{}
-header-includes:
-  - |
-    \usepackage{graphicx}
-    \usepackage{fancyhdr}
-    \usepackage{ifthen}
-    \pagestyle{fancy}
-    \fancyhf{}
-    % ---- header image -------------------------------------------------------
-    \newcommand{\headerimage}{images/header.png}
-    \ifthenelse{\equal{\headerimage}{}}{}{%
-      \fancyhead[C]{\includegraphics[width=\textwidth,keepaspectratio]{\headerimage}}%
-    }
-    % ---- footer image -------------------------------------------------------
-    \newcommand{\footerimage}{images/footer.png}
-    \ifthenelse{\equal{\footerimage}{}}{}{%
-      \fancyfoot[C]{\includegraphics[width=\textwidth,keepaspectratio]{\footerimage}}%
-    }
-    \renewcommand{\headrulewidth}{0pt}
-    \renewcommand{\footrulewidth}{0pt}
-    % Apply the same style to the first page of each chapter
-    \fancypagestyle{plain}{%
-      \fancyhf{}
-      \ifthenelse{\equal{\headerimage}{}}{}{%
-        \fancyhead[C]{\includegraphics[width=\textwidth,keepaspectratio]{\headerimage}}%
-      }
-      \ifthenelse{\equal{\footerimage}{}}{}{%
-        \fancyfoot[C]{\includegraphics[width=\textwidth,keepaspectratio]{\footerimage}}%
-      }
-      \renewcommand{\headrulewidth}{0pt}
-      \renewcommand{\footrulewidth}{0pt}
-    }
+bibliography: references.bib
 ---
