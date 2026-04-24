@@ -30,7 +30,9 @@ jobs:
             docs/01-introduction.md \
             docs/02-content.md \
             docs/03-conclusion.md \
+            docs/04-advanced.md \
             --pdf-engine=xelatex \
+            --citeproc \
             -o document.pdf
 
       - name: Compute version tag
@@ -56,5 +58,5 @@ jobs:
             **Commit:** ${{ github.sha }}
 
             ### Contents
-            - `document.pdf` — compiled from `docs/01-introduction.md`, `docs/02-content.md`, and `docs/03-conclusion.md` using Pandoc + XeLaTeX.
+            - `document.pdf` — compiled from `docs/01-introduction.md`, `docs/02-content.md`, `docs/03-conclusion.md`, and `docs/04-advanced.md` using Pandoc + XeLaTeX.
           files: document.pdf
