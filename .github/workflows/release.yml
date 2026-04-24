@@ -27,9 +27,7 @@ jobs:
       - name: Build PDF with Pandoc
         run: |
           pandoc metadata.yaml \
-            docs/01-introduction.md \
-            docs/02-content.md \
-            docs/03-conclusion.md \
+            docs/*.md \
             --pdf-engine=xelatex \
             -o document.pdf
 
@@ -56,5 +54,5 @@ jobs:
             **Commit:** ${{ github.sha }}
 
             ### Contents
-            - `document.pdf` — compiled from `docs/01-introduction.md`, `docs/02-content.md`, and `docs/03-conclusion.md` using Pandoc + XeLaTeX.
+            - `document.pdf` — compiled from all Markdown files in `docs/` using Pandoc + XeLaTeX.
           files: document.pdf
