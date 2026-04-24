@@ -26,8 +26,8 @@ jobs:
 
       - name: Build PDF with Pandoc
         run: |
-          pandoc metadata.yaml \
-            docs/*.md \
+          pandoc docs/*.md \
+            --metadata-file=metadata.yaml \
             --pdf-engine=xelatex \
             -o document.pdf
 
