@@ -1,6 +1,7 @@
 \usepackage{graphicx}
 \usepackage{fancyhdr}
 \usepackage{ifthen}
+\usepackage{etoolbox}
 \pagestyle{fancy}
 \fancyhf{}
 % ---- header image -------------------------------------------------------
@@ -13,6 +14,11 @@
 \ifthenelse{\equal{\footerimage}{}}{}{%
   \fancyfoot[C]{\includegraphics[width=\textwidth,keepaspectratio]{\footerimage}}%
 }
+% ---- page numbers -------------------------------------------------------
+\newcommand{\pagenumbers}{true}
+\ifthenelse{\equal{\pagenumbers}{true}}{%
+  \fancyfoot[R]{\thepage}%
+}{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
 % Apply the same style to the first page of each chapter
@@ -24,6 +30,14 @@
   \ifthenelse{\equal{\footerimage}{}}{}{%
     \fancyfoot[C]{\includegraphics[width=\textwidth,keepaspectratio]{\footerimage}}%
   }
+  \ifthenelse{\equal{\pagenumbers}{true}}{%
+    \fancyfoot[R]{\thepage}%
+  }{}
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
 }
+% ---- new page for every chapter -----------------------------------------
+\newcommand{\chapterbreak}{true}
+\ifthenelse{\equal{\chapterbreak}{true}}{%
+  \pretocmd{\section}{\clearpage}{}{}%
+}{}

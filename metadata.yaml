@@ -3,6 +3,7 @@ title: "Example Document"
 author: "hobbyquaker"
 date: 2026-04-24
 lang: en
+titlepage: true
 toc: true
 toc-depth: 2
 lof: true
