@@ -48,8 +48,8 @@ which makes it appear in the **List of Figures**.
 
 ![A sample gradient image demonstrating colour blending from teal-blue to
   warm-orange, generated programmatically for this
-  example.](docs/images/sample-gradient.png){width=80%}
+  example.](docs/pandoc-guide/images/sample-gradient.png){width=80%}
 
 Images without a caption are included inline and do not create a figure entry:
 
-![](docs/images/sample-gradient.png){width=40%}
+![](docs/pandoc-guide/images/sample-gradient.png){width=40%}
