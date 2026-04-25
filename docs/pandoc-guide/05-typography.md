@@ -52,7 +52,7 @@ commonly used families is shown below.
 |------------------------|----------------------------------------|
 | `"Latin Modern Mono"`  | Classic LaTeX typewriter look          |
 | `"TeX Gyre Cursor"`    | Courier-compatible                     |
-| `"DejaVu Sans Mono"`   | Proportionally spaced, great readability |
+| `"DejaVu Sans Mono"`   | Monospaced, great readability            |
 
 ### Adding a font not in TeX Live
 
