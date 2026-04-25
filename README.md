@@ -12,8 +12,8 @@ publishes the result as a GitHub Release.
    inside each subdirectory.
 4. Place a `metadata.yaml`, `header.tex`, and `references.bib` in each
    document folder and customise them per document.
-5. Optionally replace `images/header.png` and `images/footer.png` with your
-   own branding images.
+5. Optionally replace `images/header.png` and `images/footer.png` inside each
+   document folder with your own branding images.
 6. Push to `main` — GitHub Actions builds all PDFs and publishes them as a
    Release automatically.
 
@@ -27,7 +27,9 @@ publishes the result as a GitHub Release.
 │   │   ├── 02-content.md
 │   │   ├── 03-conclusion.md
 │   │   ├── 04-advanced.md
-│   │   ├── images/               # Images used only by this document
+│   │   ├── images/               # Images used by this document
+│   │   │   ├── header.png        # Printed at the top of every page
+│   │   │   ├── footer.png        # Printed at the bottom of every page
 │   │   │   └── sample-gradient.png
 │   │   ├── header.tex            # LaTeX preamble for this document
 │   │   ├── metadata.yaml         # Pandoc metadata for this document
@@ -35,12 +37,12 @@ publishes the result as a GitHub Release.
 │   └── quick-reference/          # Chapters of the quick-reference document
 │       ├── 01-overview.md
 │       ├── 02-options.md
+│       ├── images/               # Images used by this document
+│       │   ├── header.png        # Printed at the top of every page
+│       │   └── footer.png        # Printed at the bottom of every page
 │       ├── header.tex
 │       ├── metadata.yaml
 │       └── references.bib
-├── images/                        # Shared header / footer images
-│   ├── header.png                 # Printed at the top of every content page
-│   └── footer.png                 # Printed at the bottom of every content page
 └── .github/workflows/
     └── release.yml                # CI workflow: build PDFs → tag → release
 ```
@@ -97,18 +99,18 @@ settings live there:
 ## Header and footer images
 
 Every page carries a header image at the top and a footer image at the
-bottom.  The shared images live in `images/` at the repository root and are
-referenced from each document's `header.tex`:
+bottom.  Each document keeps its own copies of these images inside its
+`images/` subfolder, which is referenced from that document's `header.tex`:
 
 ```latex
-\newcommand{\headerimage}{../../images/header.png}
-\newcommand{\footerimage}{../../images/footer.png}
+\newcommand{\headerimage}{images/header.png}
+\newcommand{\footerimage}{images/footer.png}
 ```
 
-**To replace** the images, overwrite `images/header.png` and/or
-`images/footer.png` with your own file.  PNG, JPEG, and PDF are all
-accepted.  The image is scaled to the full page width while preserving its
-aspect ratio.
+**To replace** the images for a specific document, overwrite
+`docs/<name>/images/header.png` and/or `docs/<name>/images/footer.png` with
+your own file.  PNG, JPEG, and PDF are all accepted.  The image is scaled to
+the full page width while preserving its aspect ratio.
 
 **To disable** a header or footer image for a specific document, edit that
 document's `header.tex` and set the command value to empty:
