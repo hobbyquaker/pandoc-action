@@ -47,6 +47,8 @@
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
 }
+% ---- list of figures in table of contents ----------------------------------
+\pretocmd{\listoffigures}{\addcontentsline{toc}{section}{\listfigurename}}{}{}
 % ---- new page for every chapter -----------------------------------------
 \newcommand{\chapterbreak}{true}
 \ifthenelse{\equal{\chapterbreak}{true}}{%

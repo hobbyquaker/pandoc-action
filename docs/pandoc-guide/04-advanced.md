@@ -53,3 +53,8 @@ which makes it appear in the **List of Figures**.
 Images without a caption are included inline and do not create a figure entry:
 
 ![](docs/pandoc-guide/images/sample-gradient.png){width=40%}
+
+# References {.unnumbered}
+
+::: {#refs}
+:::
