@@ -37,3 +37,23 @@ Set page margins in the metadata file:
 ```yaml
 geometry: margin=2.5cm
 ```
+
+## Typography: Fonts, Size, and Line Spacing
+
+Set all typographic options in the document's `metadata.yaml`:
+
+```yaml
+mainfont: "TeX Gyre Pagella"    # body text (any XeLaTeX-accessible font)
+sansfont: "TeX Gyre Heros"      # headings / sans-serif elements
+monofont: "DejaVu Sans Mono"    # code blocks
+fontsize: 11pt                  # 10pt | 11pt | 12pt
+linestretch: 1.5                # 1 = single, 1.5 = one-and-a-half, 2 = double
+```
+
+Common TeX Live font families available on the CI runner:
+
+| Slot      | Examples                                                          |
+|-----------|-------------------------------------------------------------------|
+| Serif     | `"Latin Modern Roman"`, `"TeX Gyre Termes"`, `"TeX Gyre Pagella"` |
+| Sans      | `"Latin Modern Sans"`, `"TeX Gyre Heros"`, `"DejaVu Sans"`       |
+| Mono      | `"Latin Modern Mono"`, `"TeX Gyre Cursor"`, `"DejaVu Sans Mono"` |

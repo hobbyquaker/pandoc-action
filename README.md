@@ -86,7 +86,11 @@ settings live there:
 | `toc-depth`    | Number of heading levels shown in the TOC        |
 | `numbersections` | `true` to number chapters and sections         |
 | `geometry`     | Page margins, e.g. `margin=2.5cm`               |
-| `fontsize`     | Base font size, e.g. `12pt`                     |
+| `fontsize`     | Base font size, e.g. `11pt` or `12pt`           |
+| `mainfont`     | Main body font (XeLaTeX), e.g. `"DejaVu Serif"` |
+| `sansfont`     | Sans-serif font used in headings, e.g. `"DejaVu Sans"` |
+| `monofont`     | Monospaced font used in code blocks, e.g. `"DejaVu Sans Mono"` |
+| `linestretch`  | Line-spacing multiplier, e.g. `1.5` for 1.5× spacing |
 | `papersize`    | Paper size, e.g. `a4` or `letter`              |
 | `lang`         | Document language (BCP 47 tag), e.g. `en`       |
 
@@ -189,6 +193,44 @@ The workflow requires the `contents: write` permission to push tags and
 create releases.  This is set at the workflow level in `release.yml`.
 
 ## Common customisations
+
+### Custom fonts, font size, and line spacing
+
+XeLaTeX (the PDF engine used by this project) can use any font installed on the
+system.  The CI runner has `texlive-fonts-recommended` and `texlive-fonts-extra`
+installed, which include a wide range of fonts.  Set the following keys in
+`metadata.yaml`:
+
+```yaml
+mainfont: "DejaVu Serif"       # body text
+sansfont: "DejaVu Sans"        # headings (if using a sans-serif heading style)
+monofont: "DejaVu Sans Mono"   # code blocks
+fontsize: 11pt                 # base size: 10pt, 11pt, or 12pt
+linestretch: 1.5               # line-spacing multiplier (1 = single, 1.5 = one-and-a-half)
+```
+
+> **Font availability:** to use a system font by name the font must be installed
+> on the machine running `xelatex`.  On the CI runner the packages
+> `texlive-fonts-recommended` and `texlive-fonts-extra` are already installed.
+> For fonts outside those packages, add an `apt-get install` step in
+> `.github/workflows/release.yml` before the Pandoc build step.
+
+**Common font choices available out of the box**
+
+| Purpose    | Font name examples                                  |
+|------------|-----------------------------------------------------|
+| Body serif | `"DejaVu Serif"`, `"TeX Gyre Termes"`, `"Latin Modern Roman"` |
+| Body sans  | `"DejaVu Sans"`, `"TeX Gyre Heros"`, `"Latin Modern Sans"`    |
+| Monospace  | `"DejaVu Sans Mono"`, `"TeX Gyre Cursor"`                     |
+
+**Line spacing values**
+
+| `linestretch` value | Effect                        |
+|---------------------|-------------------------------|
+| `1`                 | Single spacing (default)      |
+| `1.25`              | Slightly open                 |
+| `1.5`               | One-and-a-half spacing        |
+| `2`                 | Double spacing                |
 
 ### Add a bibliography
 
