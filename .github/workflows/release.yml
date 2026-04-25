@@ -28,13 +28,13 @@ jobs:
         run: |
           for doc_dir in docs/*/; do
             name=$(basename "$doc_dir")
-            pandoc \
+            (cd "$doc_dir" && pandoc \
               --metadata-file=metadata.yaml \
               --include-in-header=header.tex \
               --pdf-engine=xelatex \
               --citeproc \
-              "$doc_dir"*.md \
-              -o "${name}.pdf"
+              *.md \
+              -o "../../${name}.pdf")
           done
 
       - name: Compute version tag

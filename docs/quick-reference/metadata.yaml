@@ -1,0 +1,19 @@
+---
+title: "Pandoc Quick Reference"
+author: "hobbyquaker"
+date: 2026-04-24
+lang: en
+titlepage: true
+toc: true
+toc-depth: 2
+lof: true
+numbersections: true
+colorlinks: true
+linkcolor: NavyBlue
+urlcolor: NavyBlue
+citecolor: NavyBlue
+geometry: margin=2.5cm
+fontsize: 12pt
+papersize: a4
+bibliography: references.bib
+---

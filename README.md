@@ -7,35 +7,53 @@ publishes the result as a GitHub Release.
 ## Quick start
 
 1. **Fork or use this repository as a template.**
-2. Replace the Markdown files in `docs/` with your own content.
-3. Update the title, author, and date in `metadata.yaml`.
-4. Optionally replace `images/header.png` and `images/footer.png` with your
+2. Create a subdirectory under `docs/` for each document you want to produce.
+3. Add numbered Markdown chapter files (`01-intro.md`, `02-content.md`, …)
+   inside each subdirectory.
+4. Place a `metadata.yaml`, `header.tex`, and `references.bib` in each
+   document folder and customise them per document.
+5. Optionally replace `images/header.png` and `images/footer.png` with your
    own branding images.
-5. Push to `main` — GitHub Actions builds the PDF and publishes it as a
+6. Push to `main` — GitHub Actions builds all PDFs and publishes them as a
    Release automatically.
 
 ## Repository layout
 
 ```
 .
-├── docs/                    # Markdown source chapters
-│   ├── 01-introduction.md
-│   ├── 02-content.md
-│   └── 03-conclusion.md
-├── images/                  # Header / footer images used on every page
-│   ├── header.png           # Printed at the top of every content page
-│   └── footer.png           # Printed at the bottom of every content page
-├── metadata.yaml            # Pandoc document metadata and LaTeX settings
+├── docs/                          # One subdirectory per document
+│   ├── pandoc-guide/              # Chapters of the pandoc-guide document
+│   │   ├── 01-introduction.md
+│   │   ├── 02-content.md
+│   │   ├── 03-conclusion.md
+│   │   ├── 04-advanced.md
+│   │   ├── images/               # Images used only by this document
+│   │   │   └── sample-gradient.png
+│   │   ├── header.tex            # LaTeX preamble for this document
+│   │   ├── metadata.yaml         # Pandoc metadata for this document
+│   │   └── references.bib        # BibTeX bibliography for this document
+│   └── quick-reference/          # Chapters of the quick-reference document
+│       ├── 01-overview.md
+│       ├── 02-options.md
+│       ├── header.tex
+│       ├── metadata.yaml
+│       └── references.bib
+├── images/                        # Shared header / footer images
+│   ├── header.png                 # Printed at the top of every content page
+│   └── footer.png                 # Printed at the bottom of every content page
 └── .github/workflows/
-    └── release.yml          # CI workflow: build PDF → tag → release
+    └── release.yml                # CI workflow: build PDFs → tag → release
 ```
 
 ## Writing content
 
-Add or remove Markdown files in `docs/`.  Chapters are included in
-**alphabetical order**, so use numeric prefixes (e.g. `01-`, `02-`) to
-control the chapter order.  The workflow picks them up automatically via
-`docs/*.md` — no changes to the workflow file are needed.
+Add or remove Markdown files inside a document's subfolder under `docs/`.
+Chapters are included in **alphabetical order**, so use numeric prefixes
+(e.g. `01-`, `02-`) to control chapter order.  The workflow picks them up
+automatically via `docs/<name>/*.md` — no changes to the workflow file are needed.
+
+To add a **new document**, create a new `docs/<name>/` subdirectory with its
+own `metadata.yaml`, `header.tex`, `references.bib`, and numbered `.md` files.
 
 ### Supported Markdown features
 
@@ -56,7 +74,8 @@ technical document:
 
 ## Document metadata (`metadata.yaml`)
 
-All document-level settings live in `metadata.yaml`:
+Each document folder contains its own `metadata.yaml`.  All document-level
+settings live there:
 
 | Field          | Purpose                                          |
 |----------------|--------------------------------------------------|
@@ -74,20 +93,21 @@ All document-level settings live in `metadata.yaml`:
 ## Header and footer images
 
 Every page carries a header image at the top and a footer image at the
-bottom.  They are configured via LaTeX commands inside the `header-includes`
-block of `metadata.yaml`:
+bottom.  The shared images live in `images/` at the repository root and are
+referenced from each document's `header.tex`:
 
 ```latex
-\newcommand{\headerimage}{images/header.png}
-\newcommand{\footerimage}{images/footer.png}
+\newcommand{\headerimage}{../../images/header.png}
+\newcommand{\footerimage}{../../images/footer.png}
 ```
 
 **To replace** the images, overwrite `images/header.png` and/or
 `images/footer.png` with your own file.  PNG, JPEG, and PDF are all
-accepted.  The image is scaled to the full text-block width
-(`\textwidth`) while preserving its aspect ratio.
+accepted.  The image is scaled to the full page width while preserving its
+aspect ratio.
 
-**To disable** a header or footer image, set the command value to empty:
+**To disable** a header or footer image for a specific document, edit that
+document's `header.tex` and set the command value to empty:
 
 ```latex
 \renewcommand{\headerimage}{}   % no header image
@@ -100,17 +120,21 @@ accepted.  The image is scaled to the full text-block width
 ## Running locally
 
 Install [Pandoc](https://pandoc.org/installing.html) and a XeLaTeX
-distribution (e.g. TeX Live on Linux/macOS or MiKTeX on Windows), then run:
+distribution (e.g. TeX Live on Linux/macOS or MiKTeX on Windows), then run
+from inside a document folder:
 
 ```bash
-pandoc docs/*.md \
+cd docs/pandoc-guide
+pandoc *.md \
   --metadata-file=metadata.yaml \
+  --include-in-header=header.tex \
   --pdf-engine=xelatex \
-  -o document.pdf
+  --citeproc \
+  -o ../../pandoc-guide.pdf
 ```
 
-> On Windows with PowerShell, replace `docs/*.md` with an explicit list
-> of files since PowerShell does not expand globs the same way as bash.
+> On Windows with PowerShell, replace `*.md` with an explicit list of files
+> since PowerShell does not expand globs the same way as bash.
 
 ## Clickable cross-references
 
@@ -156,9 +180,10 @@ The workflow (`.github/workflows/release.yml`) triggers on every push to
 1. Checks out the repository with full history so the tag push succeeds.
 2. Installs Pandoc and a full XeLaTeX stack (`texlive-xetex`,
    `texlive-fonts-recommended`, `texlive-fonts-extra`).
-3. Builds `document.pdf` from all Markdown files in `docs/`.
+3. Iterates over every subdirectory in `docs/`, `cd`s into it, and runs
+   Pandoc using the folder's own `metadata.yaml` and `header.tex`.
 4. Tags the commit as `v1.<run_number>`.
-5. Creates a GitHub Release and uploads `document.pdf` as a release asset.
+5. Creates a GitHub Release and uploads all `*.pdf` files as release assets.
 
 The workflow requires the `contents: write` permission to push tags and
 create releases.  This is set at the workflow level in `release.yml`.
@@ -167,20 +192,22 @@ create releases.  This is set at the workflow level in `release.yml`.
 
 ### Add a bibliography
 
-1. Create a `references.bib` file in the repo root.
-2. Add `bibliography: references.bib` to `metadata.yaml`.
-3. Add `--citeproc` to the Pandoc command in `.github/workflows/release.yml`.
+1. Add entries to the `references.bib` inside the relevant document folder.
+2. Ensure `bibliography: references.bib` is set in that document's
+   `metadata.yaml` (already configured).
+3. The `--citeproc` flag is already passed in the workflow; cite entries
+   with `[@citekey]` syntax in Markdown.
 
 ### Use a custom LaTeX template
 
-Pass `--template=my-template.tex` to the Pandoc command and commit your
-template file to the repository.
+Pass `--template=my-template.tex` to the Pandoc command in the workflow and
+commit your template file to the relevant document folder.
 
 ### Generate additional output formats
 
-Duplicate the Pandoc step in `release.yml` with a different `-o` target
-(e.g. `-o document.html` or `-o document.epub`) and add the extra file to
-the `files:` list of the release step.
+Duplicate the inner Pandoc invocation in `release.yml` with a different
+`-o` target (e.g. `-o "../../${name}.html"`) and add the extra file pattern
+to the `files:` list of the release step.
 
 ### Change the version scheme
 
