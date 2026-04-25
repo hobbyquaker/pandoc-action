@@ -6,7 +6,7 @@
 \fancyhf{}
 \setlength{\headsep}{0pt}
 % ---- header image -------------------------------------------------------
-\newcommand{\headerimage}{../../images/header.png}
+\newcommand{\headerimage}{images/header.png}
 \ifthenelse{\equal{\headerimage}{}}{}{%
   \newlength{\hdrheight}%
   \newsavebox{\hdrimgbox}%
@@ -17,7 +17,7 @@
   \fancyhead[L]{\raisebox{\dimexpr 1in+\voffset+\topmargin+\headheight-\hdrheight\relax}[0pt][0pt]{\usebox{\hdrimgbox}}}%
 }
 % ---- footer image -------------------------------------------------------
-\newcommand{\footerimage}{../../images/footer.png}
+\newcommand{\footerimage}{images/footer.png}
 \ifthenelse{\equal{\footerimage}{}}{}{%
   \newsavebox{\ftrimgbox}%
   \AtBeginDocument{%
