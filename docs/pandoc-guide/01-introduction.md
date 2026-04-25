@@ -33,3 +33,5 @@ This document is composed of three chapters:
 2. [**Content Showcase**](#content-showcase) — a tour of the Markdown features that Pandoc supports,
    including a dedicated [Cross-References](#cross-references) section.
 3. [**Conclusion**](#conclusion) — a summary of what was demonstrated and suggested next steps.
+4. [**Advanced Features**](#advanced-features) — footnotes, citations, images, and a List of Figures.
+5. [**Typography**](#typography) — custom fonts, font size, and line spacing.
