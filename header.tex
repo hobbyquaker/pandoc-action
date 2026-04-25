@@ -44,7 +44,7 @@
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0pt}
 }
-\AtBeginDocument{\thispagestyle{titlepagestyle}}
+\AtBeginDocument{\apptocmd{\maketitle}{\thispagestyle{titlepagestyle}}{}{}}
 % Apply the same style to the first page of each chapter
 \fancypagestyle{plain}{%
   \fancyhf{}
