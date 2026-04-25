@@ -32,6 +32,19 @@
 }{}
 \renewcommand{\headrulewidth}{0pt}
 \renewcommand{\footrulewidth}{0pt}
+% ---- title page: header/footer images but no page number -------------------
+\fancypagestyle{titlepagestyle}{%
+  \fancyhf{}
+  \ifthenelse{\equal{\headerimage}{}}{}{%
+    \fancyhead[L]{\raisebox{\dimexpr 1in+\voffset+\topmargin+\headheight-\hdrheight\relax}[0pt][0pt]{\usebox{\hdrimgbox}}}%
+  }
+  \ifthenelse{\equal{\footerimage}{}}{}{%
+    \fancyfoot[L]{\raisebox{\dimexpr-\paperheight+1in+\voffset+\topmargin+\headheight+\headsep+\textheight+\footskip\relax}[0pt][0pt]{\usebox{\ftrimgbox}}}%
+  }
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+\AtBeginDocument{\thispagestyle{titlepagestyle}}
 % Apply the same style to the first page of each chapter
 \fancypagestyle{plain}{%
   \fancyhf{}
