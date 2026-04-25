@@ -17,17 +17,22 @@ Each subdirectory under `docs/` becomes its own PDF.
 │   │   ├── 02-content.md
 │   │   ├── 03-conclusion.md
 │   │   ├── 04-advanced.md
-│   │   └── images/               # Images used by this document
-│   │       └── sample-gradient.png
+│   │   ├── images/               # Images used by this document
+│   │   │   ├── header.png        # Printed at the top of every page
+│   │   │   ├── footer.png        # Printed at the bottom of every page
+│   │   │   └── sample-gradient.png
+│   │   ├── header.tex            # LaTeX preamble for this document
+│   │   ├── metadata.yaml         # Pandoc metadata for this document
+│   │   └── references.bib        # BibTeX bibliography for this document
 │   └── quick-reference/           # Chapters of the quick-reference document
 │       ├── 01-overview.md
-│       └── 02-options.md
-├── images/                        # Header / footer images used on every page
-│   ├── header.png
-│   └── footer.png
-├── header.tex                     # LaTeX preamble (header/footer setup)
-├── references.bib                 # BibTeX bibliography
-├── metadata.yaml                  # Pandoc document metadata and LaTeX settings
+│       ├── 02-options.md
+│       ├── images/               # Images used by this document
+│       │   ├── header.png        # Printed at the top of every page
+│       │   └── footer.png        # Printed at the bottom of every page
+│       ├── header.tex
+│       ├── metadata.yaml
+│       └── references.bib
 └── .github/workflows/
     └── release.yml                # CI workflow: build PDFs → tag → release
 ```
@@ -41,10 +46,13 @@ Each subdirectory under `docs/` becomes its own PDF.
   glob (`docs/<name>/*.md`), so chapters are included in alphabetical/numerical
   order.  Use numeric prefixes (e.g. `01-`, `02-`) to control chapter order.
 - **Metadata lives in `metadata.yaml`**: title, author, date, TOC settings, paper
-  size, margins, and bibliography reference all reside in this single shared file.
+  size, margins, and bibliography reference all reside in the per-document
+  `metadata.yaml` inside each `docs/<name>/` folder.
   Do not hard-code LaTeX settings in individual Markdown files.
-- **Header/footer images**: controlled via `\newcommand{\headerimage}{...}` and
-  `\newcommand{\footerimage}{...}` inside `header.tex`.  Set the value to an empty
+- **Header/footer images**: each document stores its own `header.png` and
+  `footer.png` inside its `images/` subfolder (e.g. `docs/<name>/images/`).
+  These are referenced from `header.tex` via `\newcommand{\headerimage}{images/header.png}`
+  and `\newcommand{\footerimage}{images/footer.png}`.  Set the value to an empty
   string to disable; never remove the `\newcommand` line entirely.
 - **Versioning**: the CI workflow auto-tags every successful build as `v1.<run_number>`.
   The tag is pushed before the release is created.
@@ -68,33 +76,42 @@ Each subdirectory under `docs/` becomes its own PDF.
 
 ### Adding a new document
 1. Create `docs/<name>/` and populate it with numbered `.md` files.
-2. No other changes needed — the workflow glob `docs/*/` picks it up automatically.
+2. Copy `header.tex`, `metadata.yaml`, and `references.bib` from an existing
+   document folder and customise them as needed.
+3. Create `docs/<name>/images/` and add `header.png` and `footer.png` for the
+   page header and footer (copy from another document's `images/` folder as a
+   starting point).
+4. No workflow changes needed — the workflow glob `docs/*/` picks it up automatically.
 
 ### Adding a chapter to an existing document
 1. Create `docs/<document-name>/NN-chapter-name.md` (choose a number that sorts where you want it).
 2. No other changes needed.
 
 ### Changing document metadata
-Edit `metadata.yaml`.  Common fields:
+Edit the `metadata.yaml` inside the relevant document folder (`docs/<name>/metadata.yaml`).  Common fields:
 - `title`, `author`, `date`
 - `toc: true/false`, `toc-depth: <number>`
 - `geometry: margin=2.5cm`
 - `fontsize: 12pt`, `papersize: a4`
 
 ### Replacing header/footer images
-Overwrite `images/header.png` and/or `images/footer.png`.  Any image format that
-XeLaTeX accepts works (PNG, JPEG, PDF).
+Overwrite `docs/<name>/images/header.png` and/or `docs/<name>/images/footer.png`
+for the relevant document.  Any image format that XeLaTeX accepts works (PNG, JPEG, PDF).
 
 ### Building a PDF locally
 ```bash
-pandoc --metadata-file=metadata.yaml --include-in-header=header.tex \
-  --pdf-engine=xelatex --citeproc \
-  docs/pandoc-guide/*.md -o pandoc-guide.pdf
+cd docs/pandoc-guide
+pandoc *.md \
+  --metadata-file=metadata.yaml \
+  --include-in-header=header.tex \
+  --pdf-engine=xelatex \
+  --citeproc \
+  -o ../../pandoc-guide.pdf
 ```
 
 ### Adding a bibliography
-1. Add entries to `references.bib`.
-2. Ensure `bibliography: references.bib` is set in `metadata.yaml` (already configured).
+1. Add entries to the `references.bib` inside the relevant document folder (`docs/<name>/references.bib`).
+2. Ensure `bibliography: references.bib` is set in that document's `metadata.yaml` (already configured).
 3. Cite entries with `[@citekey]` syntax in Markdown; `--citeproc` handles the rest.
 
 ## What NOT to do
